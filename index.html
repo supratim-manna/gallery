@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supratim Manna-Gallery </title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           COLOR TOKENS & CSS VARIABLES
+           ========================================================================== */
+        :root[data-theme="dark"] {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #131a2a;
+            --bg-card: rgba(21, 30, 48, 0.7);
+            --bg-card-hover: rgba(30, 43, 69, 0.85);
+            --bg-glass: rgba(13, 19, 33, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(99, 102, 241, 0.4);
+            
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            
+            --accent-primary: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --accent-glow: rgba(99, 102, 241, 0.25);
+            --gradient-accent: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+            
+            --badge-travel: rgba(16, 185, 129, 0.15);
+            --badge-travel-text: #34d399;
+            --badge-college: rgba(245, 158, 11, 0.15);
+            --badge-college-text: #fbbf24;
+            --badge-milestones: rgba(239, 68, 68, 0.15);
+            --badge-milestones-text: #f87171;
+            --badge-aviation: rgba(14, 165, 233, 0.15);
+            --badge-aviation-text: #38bdf8;
+        }
+
+        :root[data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --bg-card-hover: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(99, 102, 241, 0.5);
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            
+            --accent-primary: #4f46e5;
+            --accent-secondary: #7c3aed;
+            --accent-glow: rgba(79, 70, 229, 0.15);
+            --gradient-accent: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+            
+            --badge-travel: #ecfdf5;
+            --badge-travel-text: #059669;
+            --badge-college: #fffbebf;
+            --badge-college-text: #d97706;
+            --badge-milestones: #fef2f2;
+            --badge-milestones-text: #dc2626;
+            --badge-aviation: #f0f9ff;
+            --badge-aviation-text: #0284c7;
+        }
+
+        /* ==========================================================================
+           BASE & RESET STYLES
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Glow Highlights */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -15vw;
+            right: -15vw;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -20vw;
+            left: -15vw;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           HEADER & NAVIGATION (GLASSMORPHISM)
+           ========================================================================== */
+        .header-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .brand-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .brand-text h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .year-nav {
+            display: flex;
+            gap: 6px;
+            background: var(--bg-secondary);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .year-nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .year-nav a:hover,
+        .year-nav a.active {
+            color: #fff;
+            background: var(--gradient-accent);
+            box-shadow: 0 2px 8px var(--accent-glow);
+        }
+
+        /* Theme Switch Button */
+        .theme-toggle-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .theme-toggle-btn:hover {
+            transform: rotate(15deg) scale(1.05);
+            border-color: var(--border-hover);
+            color: var(--accent-primary);
+        }
+
+        /* ==========================================================================
+           HERO & CATEGORY FILTERS
+           ========================================================================== */
+        .hero-section {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 36px;
+            font-weight: 400;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 18px;
+            border-radius: 24px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: var(--gradient-accent);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        /* ==========================================================================
+           TIMELINE & GALLERY GRID
+           ========================================================================== */
+        .timeline-section {
+            padding: 20px 0 60px;
+        }
+
+        .year-block {
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .year-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .year-badge {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 4px 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .year-line {
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border-color) 0%, rgba(0,0,0,0) 100%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        /* CARD DESIGN */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .card-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-image-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 50%);
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .card:hover .card-overlay {
+            opacity: 0;
+        }
+
+        .overlay-icon {
+            color: #fff;
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card-category {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(8px);
+            z-index: 2;
+        }
+
+        /* Category Badges Styling */
+        .category-travel { background: var(--badge-travel); color: var(--badge-travel-text); }
+        .category-college { background: var(--badge-college); color: var(--badge-college-text); }
+        .category-milestones { background: var(--badge-milestones); color: var(--badge-milestones-text); }
+        .category-aviation { background: var(--badge-aviation); color: var(--badge-aviation-text); }
+
+        .card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-date {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .card-desc {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-top: auto;
+        }
+
+        /* Filter Hidden State */
+        .card.is-hidden {
+            display: none !important;
+        }
+
+        /* ==========================================================================
+           LIGHTBOX MODAL WITH FULL CONTROLS
+           ========================================================================== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(5, 8, 15, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-dialog {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-img-wrapper {
+            position: relative;
+            max-width: 85vw;
+            max-height: 75vh;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 75vh;
+            display: block;
+            object-fit: contain;
+        }
+
+        .lightbox-details {
+            margin-top: 18px;
+            text-align: center;
+            color: #ffffff;
+            max-width: 600px;
+        }
+
+        .lightbox-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .lightbox-caption {
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            color: #9ca3af;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.25);
+            color: var(--accent-primary);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--gradient-accent);
+            border-color: transparent;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-prev { left: -70px; }
+        .lightbox-next { right: -70px; }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 868px) {
+            .nav-wrapper {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .header-sticky {
+                padding: 12px 0;
+            }
+            .year-nav {
+                overflow-x: auto;
+                max-width: 100%;
+            }
+            .hero-title {
+                font-size: 32px;
+            }
+            .lightbox-prev { left: 10px; top: auto; bottom: -60px; transform: none; }
+            .lightbox-next { right: 10px; top: auto; bottom: -60px; transform: none; }
+            .lightbox-prev:hover, .lightbox-next:hover { transform: scale(1.1); }
+            .lightbox-details { margin-bottom: 60px; }
+        }
+
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card-multi-image-wrapper {
+            display: flex;
+            gap: 4px;
+            height: 220px;
+        }
+
+        .card-multi-image-wrapper .card-image-wrapper {
+            flex: 1;
+            height: 100%;
+        }
+
+        .card-multi-image-wrapper .card-image-wrapper img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- STICKY HEADER WITH NAVBAR AND THEME TOGGLE -->
+    <header class="header-sticky">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">
+                    <div class="brand-avatar">SM</div>
+                    <div class="brand-text">
+                        <h1>Supratim Manna</h1>
+                        <p>Timeline & Visual Journey</p>
+                    </div>
+                </a>
+
+                <div class="nav-actions">
+                    <nav class="year-nav">
+                        <a href="#year-2026">2026</a>
+                        <a href="#year-2025">2025</a>
+                        <a href="#year-2024">2024</a>
+                        <a href="#year-2023">2023</a>
+                        <a href="#year-2022">2022</a>
+                        <a href="#year-2021">2021</a>
+                    </nav>
+
+                    <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+                        <i class="fa-solid fa-moon" id="themeIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <!-- HERO SECTION -->
+        <section class="hero-section">
+            <h2 class="hero-title">Moments</h2>
+            <p class="hero-subtitle">A chronological record of research trips, expeditions and flight logs spanning 2021 through 2026.</p>
+
+            <!-- CATEGORY FILTER BUTTONS -->
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fa-solid fa-border-all"></i> All Stories
+                </button>
+                <button class="filter-btn" data-filter="travel">
+                    <i class="fa-solid fa-compass"></i> Travel
+                </button>
+                <button class="filter-btn" data-filter="festival">
+                    <i class="fa-solid fa-trophy"></i> Festival
+                </button>
+                <button class="filter-btn" data-filter="work">
+                    <i class="fa-solid fa-briefcase"></i> Work
+                </button>
+                <button class="filter-btn" data-filter="university">
+                    <i class="fa-solid fa-graduation-cap"></i> University
+                </button>
+                <button class="filter-btn" data-filter="college">
+                    <i class="fa-solid fa-graduation-cap"></i> College
+                </button>
+                <button class="filter-btn" data-filter="nss">
+                    <i class="fa-solid fa-briefcase"></i> NSS
+                </button>
+            </div>
+        </section>
+
+        <!-- TIMELINE CONTAINER -->
+        <section class="timeline-section">
+
+            <!-- YEAR 2026 -->
+            <div class="year-block" id="year-2026">
+                <div class="year-header">
+                    <div class="year-badge">2026</div>
+                    <div class="year-line"></div>
+                </div>
+                <div class="gallery-grid">
+                    
+
+
+                    <article class="card card-double-image" data-category="festival">
+                        <div class="card-multi-image-wrapper">
+                            <div class="card-image-wrapper">
+                                <span class="card-category category-festival">festival</span>
+                                <img src="16092026_2.jpg" alt="festival First Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                            <div class="card-image-wrapper">
+                                <img src="16092026_1.jpg" alt="festival Second Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> September 16, 2025</div>
+                            <h3 class="card-title">Ganesh Chaturthi</h3>
+                            <p class="card-desc">Mandai</p>
+                        </div>
+                    </article>
+                    
+                    <article class="card" data-category="university">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-University">University</span>
+                            <img src="09092026.jpg" alt="Department Ice Hockey League" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> September 09, 2026</div>
+                            <h3 class="card-title">Fresher's Welcome</h3>
+                            <p class="card-desc">DIAT</p>
+                        </div>
+                    </article>
+
+
+                    <article class="card" data-category="travel">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-Work">Travel</span>
+                            <img src="08082026.jpg" alt="Department Ice Hockey League" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> August 08, 2025</div>
+                            <h3 class="card-title">Madheghat Waterfall</h3>
+                            <p class="card-desc">Pune</p>
+                        </div>
+                    </article>
+
+
+                    <article class="card card-double-image" data-category="travel">
+                        <div class="card-multi-image-wrapper">
+                            <div class="card-image-wrapper">
+                                <span class="card-category category-Work">Travel</span>
+                                <img src="01082026_2.jpg" alt="Work First Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                            <div class="card-image-wrapper">
+                                <img src="01082026_1.jpg" alt="NSS Second Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> November 06, 2025</div>
+                            <h3 class="card-title">Rajgad Fort</h3>
+                            <p class="card-desc">Pune</p>
+                        </div>
+                    </article>
+                    
+
+
+
+                </div>
+            </div>
+
+            <!-- YEAR 2025 -->
+            <div class="year-block" id="year-2025">
+                <div class="year-header">
+                    <div class="year-badge">2025</div>
+                    <div class="year-line"></div>
+                </div>
+                <div class="gallery-grid">
+
+
+                    <article class="card card-double-image" data-category="work">
+                        <div class="card-multi-image-wrapper">
+                            <div class="card-image-wrapper">
+                                <span class="card-category category-Work">Work</span>
+                                <img src="06112025_2.jpg" alt="Work First Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                            <div class="card-image-wrapper">
+                                <img src="06112025_1.jpg" alt="NSS Second Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> November 06, 2025</div>
+                            <h3 class="card-title">Industrial Visit</h3>
+                            <p class="card-desc">GHRCEM</p>
+                        </div>
+                    </article>
+                    
+
+
+
+                    <article class="card" data-category="work">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-Work">Work</span>
+                            <img src="17102025.jpg" alt="Department Ice Hockey League" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> October 17, 2025</div>
+                            <h3 class="card-title">CSDS Dept</h3>
+                            <p class="card-desc">GHRCEM</p>
+                        </div>
+                    </article>
+
+                    <article class="card card-double-image" data-category="festival">
+                        <div class="card-multi-image-wrapper">
+                            <div class="card-image-wrapper">
+                                <span class="card-category category-festival">festival</span>
+                                <img src="29082025_1.jpg" alt="festival First Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                            <div class="card-image-wrapper">
+                                <img src="29082025_2.jpg" alt="NSS Second Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> August 29, 2025</div>
+                            <h3 class="card-title">Ganesh Chaturthi</h3>
+                            <p class="card-desc">GHRCEM</p>
+                        </div>
+                    </article>
+                    
+                    <article class="card" data-category="university">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-University">University</span>
+                            <img src="10082025.jpg" alt="Department Ice Hockey League" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> August 10, 2025</div>
+                            <h3 class="card-title">Convocation</h3>
+                            <p class="card-desc">DIAT</p>
+                        </div>
+                    </article>
+
+                    <article class="card" data-category="university">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-University">University</span>
+                            <img src="03062025.jpg" alt="Glacier National Park Traverse" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> June 03, 2025</div>
+                            <h3 class="card-title">Farewell</h3>
+                            <p class="card-desc">DIAT</p>
+                        </div>
+                    </article>
+
+
+                    <article class="card card-double-image" data-category="nss">
+                        <div class="card-multi-image-wrapper">
+                            <div class="card-image-wrapper">
+                                <span class="card-category category-NSS">NSS</span>
+                                <img src="20022025_2.jpg" alt="NSS First Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                            <div class="card-image-wrapper">
+                                <img src="20022025_1.jpg" alt="NSS Second Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> February 20, 2025</div>
+                            <h3 class="card-title">NSS</h3>
+                            <p class="card-desc">Pune</p>
+                        </div>
+                    </article>
+                    
+
+                </div>
+            </div>
+
+            <!-- YEAR 2024 -->
+            <div class="year-block" id="year-2024">
+                <div class="year-header">
+                    <div class="year-badge">2024</div>
+                    <div class="year-line"></div>
+                </div>
+                <div class="gallery-grid">
+
+                    <article class="card" data-category="festival">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-festival">festival</span>
+                            <img src="15112024.jpg" alt="Intramural Soccer Finals Victory" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> November 15, 2024</div>
+                            <h3 class="card-title">Guru Nanak festival</h3>
+                            <p class="card-desc">Pune</p>
+                        </div>
+                    </article>
+
+                    <article class="card" data-category="festival">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-festival">festival</span>
+                            <img src="12102024.jpg" alt="Intramural Soccer Finals Victory" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> October 12, 2024</div>
+                            <h3 class="card-title">Durga festival</h3>
+                            <p class="card-desc">Pune</p>
+                        </div>
+                    </article>
+
+
+                    <article class="card" data-category="festival">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-Holi">Holi</span>
+                            <img src="25032024.jpg" alt="Intramural Soccer Finals Victory" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> March 25, 2024</div>
+                            <h3 class="card-title">Holi</h3>
+                            <p class="card-desc">DIAT</p>
+                        </div>
+                    </article>
+
+
+                    <article class="card card-double-image" data-category="workshop">
+                        <div class="card-multi-image-wrapper">
+                            <div class="card-image-wrapper">
+                                <span class="card-category category-Workshop">Workshop</span>
+                                <img src="28022024_2.jpg" alt="Workshop First Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                            <div class="card-image-wrapper">
+                                <img src="28022024_1.jpg" alt="Workshop Second Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> June 22, 2023</div>
+                            <h3 class="card-title">Workshop</h3>
+                            <p class="card-desc">GMRT, NCRA</p>
+                        </div>
+                    </article>
+                    
+
+                    <article class="card" data-category="nss">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-NSS">NSS</span>
+                            <img src="19022024.jpg" alt="Intramural Soccer Finals Victory" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> February 19, 2024</div>
+                            <h3 class="card-title">NSS</h3>
+                            <p class="card-desc">DIAT</p>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+
+            <!-- YEAR 2023 -->
+            <div class="year-block" id="year-2023">
+                <div class="year-header">
+                    <div class="year-badge">2023</div>
+                    <div class="year-line"></div>
+                </div>
+                <div class="gallery-grid">
+
+                    <article class="card" data-category="travel">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-Travel">Travel</span>
+                            <img src="06102023.jpg" alt="Travel" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> October 06, 2023</div>
+                            <h3 class="card-title">Sunset Point</h3>
+                            <p class="card-desc">DIAT</p>
+                        </div>
+                    </article>
+
+                    <article class="card" data-category="university">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-University">University</span>
+                            <img src="24092023.jpg" alt="University" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> September 24, 2023</div>
+                            <h3 class="card-title">Khadakwasla Lake</h3>
+                            <p class="card-desc">DIAT</p>
+                        </div>
+                    </article>
+
+
+                    <article class="card" data-category="university">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-University">University</span>
+                            <img src="07092023.jpg" alt="University" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> September 07, 2023</div>
+                            <h3 class="card-title">Friends</h3>
+                            <p class="card-desc">DIAT</p>
+                        </div>
+                    </article>
+
+
+                    <article class="card" data-category="university">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-University">University</span>
+                            <img src="01092023.jpg" alt="University" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> September 01, 2023</div>
+                            <h3 class="card-title">COA Class</h3>
+                            <p class="card-desc">DIAT</p>
+                        </div>
+                    </article>
+
+
+                    <article class="card card-double-image" data-category="college">
+                        <div class="card-multi-image-wrapper">
+                            <div class="card-image-wrapper">
+                                <span class="card-category category-College">College</span>
+                                <img src="22062023_2.jpg" alt="Farewell First Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                            <div class="card-image-wrapper">
+                                <img src="22062023_1.jpg" alt="Farewell Second Photo" class="lightbox-trigger" loading="lazy">
+                                <div class="card-overlay">
+                                    <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> June 22, 2023</div>
+                            <h3 class="card-title">Farewell</h3>
+                            <p class="card-desc">Midnapore College (Autonomous)</p>
+                        </div>
+                    </article>
+                    
+                </div>
+            </div>
+
+            <!-- YEAR 2022 -->
+            <div class="year-block" id="year-2022">
+                <div class="year-header">
+                    <div class="year-badge">2022</div>
+                    <div class="year-line"></div>
+                </div>
+                <div class="gallery-grid">
+
+                    <article class="card" data-category="college">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-college">college</span>
+                            <img src="15112022.jpg" alt="Research Lab Milestone" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> November 15, 2022</div>
+                            <h3 class="card-title">Football Ground</h3>
+                            <p class="card-desc">Midnapore College(Autonomous)</p>
+                        </div>
+                    </article>
+
+                    <article class="card" data-category="travel">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-Travel">Travel</span>
+                            <img src="08092022.jpg" alt="Research Lab Milestone" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> September 08, 2022</div>
+                            <h3 class="card-title">Kangsabati River</h3>
+                            <p class="card-desc">Midnapore</p>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+
+
+            <!-- YEAR 2021 -->
+            <div class="year-block" id="year-2021">
+                <div class="year-header">
+                    <div class="year-badge">2021</div>
+                    <div class="year-line"></div>
+                </div>
+                <div class="gallery-grid">
+
+                    <article class="card" data-category="College">
+                        <div class="card-image-wrapper">
+                            <span class="card-category category-College">College</span>
+                            <img src="2021.jpg" alt="Coastal Exploration" loading="lazy">
+                            <div class="card-overlay">
+                                <div class="overlay-icon"><i class="fa-solid fa-expand"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-date"><i class="fa-regular fa-calendar"></i> November 20, 2021</div>
+                            <h3 class="card-title">Basketball court</h3>
+                            <p class="card-desc">Midnapore College(Autonomous).</p>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+
+    <!-- FULLSCREEN LIGHTBOX MODAL -->
+    <div class="lightbox" id="lightboxModal" tabindex="-1">
+        <div class="lightbox-dialog">
+            <span class="lightbox-counter" id="lightboxCounter">1 / 10</span>
+            <button class="lightbox-close" id="lightboxCloseBtn" title="Close (Esc)">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrevBtn" title="Previous Image">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            
+            <div class="lightbox-img-wrapper">
+                <img src="" alt="" class="lightbox-img" id="lightboxImg">
+            </div>
+
+            <button class="lightbox-nav lightbox-next" id="lightboxNextBtn" title="Next Image">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <div class="lightbox-details">
+                <h4 class="lightbox-title" id="lightboxTitle"></h4>
+                <p class="lightbox-caption" id="lightboxCaption"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Supratim Manna</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPT LOGIC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* ==========================================================================
+               1. THEME SWITCHER (WITH LOCALSTORAGE)
+               ========================================================================== */
+            const htmlTag = document.documentElement;
+            const themeBtn = document.getElementById('themeToggleBtn');
+            const themeIcon = document.getElementById('themeIcon');
+
+            // Load saved theme or system preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else {
+                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(systemPrefersDark ? 'dark' : 'light');
+            }
+
+            themeBtn.addEventListener('click', () => {
+                const currentTheme = htmlTag.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+
+            function setTheme(theme) {
+                htmlTag.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+
+                if (theme === 'dark') {
+                    themeIcon.className = 'fa-solid fa-sun';
+                } else {
+                    themeIcon.className = 'fa-solid fa-moon';
+                }
+            }
+
+            /* ==========================================================================
+               2. CATEGORY FILTERING LOGIC
+               ========================================================================== */
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.card');
+            const yearBlocks = document.querySelectorAll('.year-block');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active button state
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    // Filter cards
+                    cards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category');
+                        if (filterValue === 'all' || cardCategory === filterValue) {
+                            card.classList.remove('is-hidden');
+                        } else {
+                            card.classList.add('is-hidden');
+                        }
+                    });
+
+                    // Hide/Show empty year blocks based on card visibility
+                    yearBlocks.forEach(block => {
+                        const visibleCards = block.querySelectorAll('.card:not(.is-hidden)');
+                        if (visibleCards.length === 0) {
+                            block.style.display = 'none';
+                        } else {
+                            block.style.display = 'block';
+                        }
+                    });
+                });
+            });
+
+            /* ==========================================================================
+               3. LIGHTBOX MODAL CONTROLS
+               ========================================================================== */
+            const lightbox = document.getElementById('lightboxModal');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxTitle = document.getElementById('lightboxTitle');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const lightboxCounter = document.getElementById('lightboxCounter');
+            const closeBtn = document.getElementById('lightboxCloseBtn');
+            const prevBtn = document.getElementById('lightboxPrevBtn');
+            const nextBtn = document.getElementById('lightboxNextBtn');
+
+            let visibleCardsList = [];
+            let currentIndex = 0;
+
+            // Open Lightbox on image click
+            document.querySelectorAll('.card-image-wrapper').forEach(wrapper => {
+                wrapper.addEventListener('click', () => {
+                    // Collect currently visible cards (respecting active filter)
+                    visibleCardsList = Array.from(document.querySelectorAll('.card:not(.is-hidden)'));
+                    const clickedCard = wrapper.closest('.card');
+                    currentIndex = visibleCardsList.indexOf(clickedCard);
+
+                    if (currentIndex !== -1) {
+                        updateLightboxContent();
+                        lightbox.classList.add('active');
+                        document.body.style.overflow = 'hidden'; // Lock scrolling
+                    }
+                });
+            });
+
+            function updateLightboxContent() {
+                const currentCard = visibleCardsList[currentIndex];
+                const imgElement = currentCard.querySelector('img');
+                const titleText = currentCard.querySelector('.card-title').innerText;
+                const descText = currentCard.querySelector('.card-desc').innerText;
+
+                lightboxImg.src = imgElement.src;
+                lightboxImg.alt = imgElement.alt;
+                lightboxTitle.innerText = titleText;
+                lightboxCaption.innerText = descText;
+                lightboxCounter.innerText = `${currentIndex + 1} / ${visibleCardsList.length}`;
+            }
+
+            function prevImage() {
+                if (visibleCardsList.length === 0) return;
+                currentIndex = (currentIndex - 1 + visibleCardsList.length) % visibleCardsList.length;
+                updateLightboxContent();
+            }
+
+            function nextImage() {
+                if (visibleCardsList.length === 0) return;
+                currentIndex = (currentIndex + 1) % visibleCardsList.length;
+                updateLightboxContent();
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = ''; // Unlock scrolling
+            }
+
+            // Event Listeners for Controls
+            prevBtn.addEventListener('click', prevImage);
+            nextBtn.addEventListener('click', nextImage);
+            closeBtn.addEventListener('click', closeLightbox);
+
+            // Close on click outside content
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            // Keyboard Shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') prevImage();
+                if (e.key === 'ArrowRight') nextImage();
+            });
+
+            /* ==========================================================================
+               4. ACTIVE NAV STATE ON SCROLL
+               ========================================================================== */
+            const navLinks = document.querySelectorAll('.year-nav a');
+
+            window.addEventListener('scroll', () => {
+                let currentYear = '';
+
+                yearBlocks.forEach(block => {
+                    const blockTop = block.offsetTop - 150;
+                    if (window.scrollY >= blockTop) {
+                        currentYear = block.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentYear}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
